@@ -1,0 +1,42 @@
+{
+  "name": "scraper",
+  "version": "1.0.0",
+  "description": "A simple web site parser/crawler.",
+  "main": "scraper.js",
+  "dependencies": {
+    "charset": "^1.0.0",
+    "cheerio": "^0.18.0",
+    "iconv-lite": "^0.4.7",
+    "jschardet": "^1.1.0",
+    "lodash-node": "^3.2.0",
+    "q": "^1.1.2",
+    "request": "^2.53.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-debug": "^2.0.0",
+    "gulp-if": "^1.2.5",
+    "gulp-jasmine": "^2.0.0",
+    "gulp-jshint": "^1.9.2",
+    "gulp-todo": "^2.5.0",
+    "yargs": "^3.0.4"
+  },
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CentralPing/scraper"
+  },
+  "keywords": [
+    "mongoose",
+    "plugin",
+    "document creation"
+  ],
+  "author": "Jason Cust <jason@centralping.com>",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/CentralPing/scraper/issues"
+  },
+  "homepage": "https://github.com/CentralPing/scraper"
+}
