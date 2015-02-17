@@ -7,7 +7,7 @@ A simple website parser/crawler with `$` selector-type syntax.
 
 ## Introduction
 
-Scraper provides two methods for extraction, `scrape` and `crawl`, as well as a helper method `trimText` and an `options` object for global configuration. Crawling a website will continue for as long as there is a nextPage property set that returns a valid response. Scraping a page can follow any secondary links (e.g. links for detail pages from a list page) if a `srcUrl` is specified for an item.
+Scraper provides two methods for extraction, `scrape` and `crawl`, as well as a helper method `trimText` and an `options` object for global configuration. Crawling a website will continue for as long as there is a `nextPage` property set that returns a valid response. Scraping a page can follow any secondary links (e.g. links for detail pages from a list page) if a `srcUrl` is specified for an item.
 
 ## Installation
 
