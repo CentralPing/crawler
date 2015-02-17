@@ -15,6 +15,7 @@ module.exports.scrape = scrape;
 module.exports.trimText = trimText;
 
 var options = module.exports.options = {
+  $: cheerio.load,
   logger: {
     warn: console.warn,
     error: console.error
@@ -44,13 +45,15 @@ function scrape(req, parser, detailParser) {
     if (err) { return deferred.reject(err); }
     if (resp.statusCode !== 200) { return deferred.reject(new Error(util.format('Request for `%s` returned: %d', req.url, resp.statusCode))); }
 
-    var results = parser(cheerio.load(decodeBody(resp, body)));
+    var results = parser(options.$(decodeBody(resp, body)));
 
     if (detailParser === undefined) {
       return deferred.resolve(results);
     }
 
     return q.allSettled(results.items.map(function (item) {
+      if (item.srcURL === undefined) { return {}; }
+
       return scrape({url: item.srcUrl}, detailParser);
     })).then(function (details) {
       details.forEach(function (result, i) {
