@@ -52,7 +52,7 @@ function scrape(req, parser, detailParser) {
     }
 
     return q.allSettled(results.items.map(function (item) {
-      if (item.srcURL === undefined) { return {}; }
+      if (item.srcUrl === undefined) { return {}; }
 
       return scrape({url: item.srcUrl}, detailParser);
     })).then(function (details) {
