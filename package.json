@@ -1,6 +1,6 @@
 {
   "name": "scraper",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A simple website parser/crawler with `$` selector-type syntax.",
   "main": "scraper.js",
   "dependencies": {

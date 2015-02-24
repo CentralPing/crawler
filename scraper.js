@@ -19,7 +19,7 @@ var options = module.exports.options = {
   nextPagePath: 'nextPage',
   itemsPath: 'items',
   srcUrlPath: 'srcUrl',
-  detailBatchLimit: 10,
+  detailChunkSize: 10,
   logger: {
     warn: console.warn,
     error: console.error
@@ -55,34 +55,32 @@ function scrape(req, parser, detailParser) {
       return deferred.resolve(results);
     }
 
-    return detailBatch(results[options.itemsPath], detailParser, 0).then(function () {
+    return Array.apply(null, Array(Math.ceil(results[options.itemsPath].length/options.detailChunkSize))).reduce(function (queue, v, i) {
+      var start = i * options.detailChunkSize;
+      var end = start + options.detailChunkSize;
+
+      return queue.then(function () {
+        return q.allSettled(results[options.itemsPath].slice(start, end).map(function (item) {
+          if (item[options.srcUrlPath] === undefined) { return {}; }
+
+          return scrape({url: item[options.srcUrlPath]}, detailParser);
+        })).then(function (details) {
+          details.forEach(function (result, j) {
+            if (result.state === 'fulfilled') {
+              _.merge(results[options.itemsPath][start + j], result.value);
+            }
+            else {
+              options.logger.error(result.reason);
+            }
+          });
+        });
+      });
+    }, q()).then(function () {
       return deferred.resolve(results);
     });
   });
 
   return deferred.promise;
-}
-
-function detailBatch(items, parser, start) {
-  var end = start + options.detailBatchLimit;
-  var batch = items.slice(start, end);
-
-  return q.allSettled(batch.map(function (item) {
-    if (item[options.srcUrlPath] === undefined) { return {}; }
-
-    return scrape({url: item[options.srcUrlPath]}, parser);
-  })).then(function (details) {
-    details.forEach(function (result, i) {
-      if (result.state === 'fulfilled') {
-        _.merge(batch[i], result.value);
-      }
-      else {
-        options.logger.error(result.reason);
-      }
-    });
-
-    return (end < items.length) ? detailBatch(items, parser, end) : items;
-  });
 }
 
 function trimText($el) {
