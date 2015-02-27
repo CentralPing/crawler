@@ -9,10 +9,10 @@ var iconv = require('iconv-lite');
 // https://github.com/ashtuchkin/iconv-lite/wiki/Use-Buffers-when-decoding
 iconv.skipDecodeWarning = true;
 
-module.exports.crawler = crawler;
+module.exports.queue = queue;
 module.exports.trimText = trimText;
 
-function crawler(options) {
+function queue(options) {
   options = _.merge({
     userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.115 Safari/537.36',
     maxRedirects: 5,
@@ -27,7 +27,7 @@ function crawler(options) {
       headers: {
         'User-Agent': options.userAgent
       }
-    }, task.req);
+    }, _.isObject(task.req) ? task.req : {url: task.req});
 
     request(req, function (err, resp, body) {
       if (!err && resp.statusCode === 200) {
@@ -39,8 +39,8 @@ function crawler(options) {
   }, options.maxConcurrency);
 }
 
-function trimText($el) {
-  var str = $el.text();
+function trimText($node) {
+  var str = $node.text();
 
   return _.isString(str) ? str.trim() : undefined;
 }
