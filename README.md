@@ -32,11 +32,11 @@ queue.push(requests, function callback(error, response, $body, request) {
   (Default: *Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.115 Safari/537.36*)
 * **maxRedirects**: The maximum number of redirects to follow.
   (Default: *5*)
-* **maxConcurrency**: An integer for determining how many request should be run in parallel.
+* **maxConcurrency**: An integer for determining how many requests should be run in parallel.
   (Default: *10*)
 * **$**: A jQuery like DOM selector.
   (Default: *[cheerio](http://cheeriojs.github.io/cheerio/)*)
- *Any alternative option must be a function that takes the raw body as an arguement*
+ *Any alternative option must be a function that takes the raw body as an argument*
 
 ### Requests
 One or more requests can be pushed onto the queue at a time. Each request must be an object with a `req` property that contains a valid [options object or URL](https://github.com/request/request#requestoptions-callback) for a [request](https://github.com/request/request). Any global optons will be replaced by any matching request options (e.g. `maxRedirects`). The request object will also be passed back to the callback handler as the 4th argument.
