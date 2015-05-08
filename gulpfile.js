@@ -1,3 +1,7 @@
+'use strict';
+/* jshint node: true */
+
+var fs = require('fs');
 var args = require('yargs').argv;
 var gulp = require('gulp');
 var gulpIf = require('gulp-if');
@@ -5,6 +9,9 @@ var debug = require('gulp-debug');
 var jshint = require('gulp-jshint');
 var todo = require('gulp-todo');
 var jasmine = require('gulp-jasmine');
+var gutil = require('gulp-util');
+var concat = require('gulp-concat');
+var jsdoc2md = require('gulp-jsdoc-to-markdown');
 
 var isDebug = !!args.debug;
 var isVerbose = !!args.verbose;
@@ -33,19 +40,19 @@ gulp.task('lint', function () {
   return lint(glob);
 });
 
-gulp.task('lint:scripts', function (done) {
+gulp.task('lint:scripts', function () {
   return lint(config.paths.scripts);
 });
 
-gulp.task('lint:spec', function (done) {
+gulp.task('lint:spec', function () {
   return lint(config.paths.specs);
 });
 
-gulp.task('test', ['lint'], function (done) {
+gulp.task('test', ['lint'], function () {
   return testRunner(cliSrc || config.paths.specs);
 });
 
-gulp.task('watch', ['test'], function (done) {
+gulp.task('watch', ['test'], function () {
   // Check to ensure both the specified specs
   // and corresponding scripts are watched
   var glob = cliSrc ?
@@ -55,7 +62,7 @@ gulp.task('watch', ['test'], function (done) {
   return gulp.watch(glob, ['test']);
 });
 
-gulp.task('todo', function (done) {
+gulp.task('todo', function () {
   return gulp.src(config.paths.all)
     .pipe(todo({
       //fileName: 'todo.md',
@@ -74,6 +81,16 @@ gulp.task('todo', function (done) {
       */
     }))
     .pipe(gulp.dest('./'));
+});
+
+gulp.task('docs', function() {
+  return gulp.src(config.paths.all)
+    .pipe(concat('README.md'))
+    .pipe(jsdoc2md({template: fs.readFileSync('./readme.hbs', 'utf8')}))
+    .on('error', function(err){
+      gutil.log('jsdoc2md failed:', err.message);
+    })
+    .pipe(gulp.dest('.'));
 });
 
 function testRunner(src) {
