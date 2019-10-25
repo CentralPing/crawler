@@ -1,6 +1,8 @@
 crawler
 ====================
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/CentralPing/crawler.svg)](https://greenkeeper.io/)
+
 [ ![Codeship Status for CentralPing/crawler](https://codeship.com/projects/d139b670-a0f1-0132-c300-3e3486fb28a9/status?branch=master)](https://codeship.com/projects/65568)
 [ ![Code Climate for CentralPing/crawler](https://codeclimate.com/github/CentralPing/crawler/badges/gpa.svg)](https://codeclimate.com/github/CentralPing/crawler)
 [ ![Dependency Status for CentralPing/crawler](https://david-dm.org/CentralPing/crawler.svg)](https://david-dm.org/CentralPing/crawler)

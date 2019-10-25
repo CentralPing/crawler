@@ -4,9 +4,9 @@
   "description": "A simple website crawler with `$` selector-type syntax.",
   "main": "crawler.js",
   "dependencies": {
-    "async": "^0.9.0",
+    "async": "^2.1.4",
     "charset": "^1.0.0",
-    "cheerio": "^0.20.0",
+    "cheerio": "^0.22.0",
     "iconv-lite": "^0.4.7",
     "jschardet": "^1.1.0",
     "lodash-node": "^3.6.0",
@@ -16,14 +16,14 @@
   "devDependencies": {
     "gulp": "^3.8.11",
     "gulp-concat": "^2.5.2",
-    "gulp-debug": "^2.0.0",
-    "gulp-if": "^1.2.5",
+    "gulp-debug": "^3.0.0",
+    "gulp-if": "^2.0.2",
     "gulp-jasmine": "^2.0.0",
     "gulp-jsdoc-to-markdown": "^1.1.1",
-    "gulp-jshint": "^1.9.2",
-    "gulp-todo": "^2.5.0",
+    "gulp-jshint": "^2.0.4",
+    "gulp-todo": "^5.3.0",
     "gulp-util": "^3.0.4",
-    "yargs": "^3.5.3"
+    "yargs": "^6.6.0"
   },
   "scripts": {
     "test": "gulp test",
