@@ -4,7 +4,7 @@
   "description": "A simple website crawler with `$` selector-type syntax.",
   "main": "crawler.js",
   "dependencies": {
-    "async": "^2.1.4",
+    "async": "^3.2.2",
     "charset": "^1.0.0",
     "cheerio": "^0.22.0",
     "iconv-lite": "^0.4.7",
